@@ -1,515 +1,1365 @@
-import base64
+import streamlit as st
 import json
 import os
-from typing import Any, Dict, List, Tuple, Optional
-
+import base64
 import faiss
 import numpy as np
-import streamlit as st
-from groq import Groq
+
 from PIL import Image
 from sentence_transformers import SentenceTransformer
+from groq import Groq
+
+
+# ============================================================
+# PAGE CONFIG
+# ============================================================
 
 st.set_page_config(
     page_title="AI Disease & Health Assistant",
     page_icon="🩺",
-    layout="wide",
+    layout="wide"
 )
 
-DEFAULT_TEXT_MODEL = "qwen/qwen3.6-27b"
-DEFAULT_VISION_MODEL = "qwen/qwen3.6-27b"
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-MAX_IMAGE_BYTES = 4 * 1024 * 1024
 
-EMERGENCY_PHRASES = [
-    "difficulty breathing", "shortness of breath", "cannot breathe",
-    "can't breathe", "chest pain", "severe chest pain", "severe bleeding",
-    "heavy bleeding", "uncontrolled bleeding", "unconscious",
-    "loss of consciousness", "seizure", "severe confusion", "blue lips",
-    "fainted", "fainting", "not responding", "coughing blood",
-    "vomiting blood", "black stool", "sudden weakness", "face drooping",
-    "slurred speech",
-]
+# ============================================================
+# TITLE
+# ============================================================
 
-def get_secret(name: str, default: str = "") -> str:
-    try:
-        return str(st.secrets.get(name, default)).strip()
-    except Exception:
-        return os.getenv(name, default).strip()
+st.title("🩺 AI Disease & Health Assistant")
 
-def language_instruction(language: str) -> str:
-    if language == "Urdu":
-        return """
-LANGUAGE RULE:
-- Answer ONLY in natural, clear Urdu script (اردو).
-- Do not switch to English for the main answer.
-- Medical terms may include an English term in parentheses only when useful.
-- Keep headings and bullet points in Urdu too.
-"""
-    return """
-LANGUAGE RULE:
-- Answer ONLY in clear, natural English.
-- Use simple wording suitable for a general reader.
-"""
+st.write(
+    "AI-powered health information using "
+    "Retrieval-Augmented Generation (RAG), "
+    "FAISS and Groq AI."
+)
 
-def emergency_check(text: str) -> List[str]:
-    lower = text.lower()
-    return [p for p in EMERGENCY_PHRASES if p in lower]
+st.warning(
+    "⚠️ This application provides general educational "
+    "health information. It does not diagnose diseases "
+    "or replace professional medical advice."
+)
 
-api_key = get_secret("GROQ_API_KEY")
-if not api_key:
-    st.error("GROQ_API_KEY is not configured.")
-    st.info(
-        'Streamlit Cloud: open your app → Settings → Secrets and add '
-        'GROQ_API_KEY = "your_key_here"'
+
+# ============================================================
+# GROQ API CONFIGURATION
+# ============================================================
+
+# Streamlit Cloud Secrets
+try:
+    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+except Exception:
+    GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+
+
+if not GROQ_API_KEY:
+    st.error(
+        "GROQ_API_KEY is not configured. "
+        "Add it to Streamlit Secrets."
     )
     st.stop()
 
-client = Groq(api_key=api_key)
-TEXT_MODEL = get_secret("GROQ_TEXT_MODEL", DEFAULT_TEXT_MODEL)
-VISION_MODEL = get_secret("GROQ_VISION_MODEL", DEFAULT_VISION_MODEL)
+
+TEXT_MODEL = "qwen/qwen3.6-27b"
+VISION_MODEL = "qwen/qwen3.6-27b"
+
+
+client = Groq(
+    api_key=GROQ_API_KEY
+)
+
+
+# ============================================================
+# LOAD KNOWLEDGE BASE
+# ============================================================
 
 @st.cache_data
-def load_knowledge_base() -> List[Dict[str, Any]]:
-    with open("knowledge_base.json", "r", encoding="utf-8") as f:
+def load_knowledge_base():
+
+    with open(
+        "knowledge_base.json",
+        "r",
+        encoding="utf-8"
+    ) as f:
+
         return json.load(f)
+
 
 knowledge_base = load_knowledge_base()
 
+
+# ============================================================
+# LOAD EMBEDDING MODEL
+# ============================================================
+
 @st.cache_resource
 def load_embedding_model():
-    return SentenceTransformer(EMBEDDING_MODEL)
+
+    return SentenceTransformer(
+        "sentence-transformers/all-MiniLM-L6-v2"
+    )
+
 
 embedding_model = load_embedding_model()
 
-@st.cache_resource
-def create_faiss_index(records_json: str):
-    records = json.loads(records_json)
-    texts = [
-        f"{x.get('condition','')}. {x.get('category','')}. {x.get('text','')}"
-        for x in records
-    ]
-    embeddings = embedding_model.encode(
-        texts,
-        convert_to_numpy=True,
-        normalize_embeddings=True,
-        show_progress_bar=False,
-    ).astype("float32")
-    idx = faiss.IndexFlatIP(embeddings.shape[1])
-    idx.add(embeddings)
-    return idx
 
-index = create_faiss_index(json.dumps(knowledge_base, ensure_ascii=False))
+# ============================================================
+# CREATE FAISS INDEX
+# ============================================================
+
+@st.cache_resource
+def create_faiss_index():
+
+    documents = [
+        item["text"]
+        for item in knowledge_base
+    ]
+
+    embeddings = embedding_model.encode(
+        documents,
+        show_progress_bar=False
+    )
+
+    embeddings = np.asarray(
+        embeddings,
+        dtype="float32"
+    )
+
+    # Normalize embeddings for cosine similarity
+    faiss.normalize_L2(embeddings)
+
+    dimension = embeddings.shape[1]
+
+    index = faiss.IndexFlatIP(
+        dimension
+    )
+
+    index.add(embeddings)
+
+    return index
+
+
+index = create_faiss_index()
+
+
+# ============================================================
+# KNOWLEDGE SEARCH
+# ============================================================
 
 def search_knowledge(
-    query: str,
-    top_k: int = 5,
-    min_score: float = 0.28,
-) -> List[Dict[str, Any]]:
-    q = embedding_model.encode(
+    query,
+    top_k=5,
+    minimum_score=0.25
+):
+
+    query_embedding = embedding_model.encode(
         [query],
-        convert_to_numpy=True,
-        normalize_embeddings=True,
-        show_progress_bar=False,
-    ).astype("float32")
-    scores, indices = index.search(q, min(top_k, len(knowledge_base)))
+        show_progress_bar=False
+    )
+
+    query_embedding = np.asarray(
+        query_embedding,
+        dtype="float32"
+    )
+
+    faiss.normalize_L2(query_embedding)
+
+    scores, indices = index.search(
+        query_embedding,
+        top_k
+    )
+
     results = []
-    for score, i in zip(scores[0], indices[0]):
-        if i < 0 or i >= len(knowledge_base):
+
+    for score, i in zip(
+        scores[0],
+        indices[0]
+    ):
+
+        if i < 0:
             continue
-        if float(score) < min_score:
+
+        if i >= len(knowledge_base):
             continue
-        item = dict(knowledge_base[i])
-        item["_score"] = float(score)
+
+        if score < minimum_score:
+            continue
+
+        item = knowledge_base[i].copy()
+
+        item["similarity_score"] = float(score)
+
         results.append(item)
+
     return results
 
-def build_context(results: List[Dict[str, Any]]) -> str:
+
+# ============================================================
+# BUILD RAG CONTEXT
+# ============================================================
+
+def build_context(results):
+
     if not results:
-        return "No sufficiently relevant medical knowledge was retrieved."
-    blocks = []
-    for n, item in enumerate(results, 1):
-        blocks.append(
-            f"""SOURCE {n}
-Condition: {item.get('condition','')}
-Category: {item.get('category','')}
-Information: {item.get('text','')}
-Source: {item.get('source','')}
-URL: {item.get('url','')}
+
+        return (
+            "No sufficiently relevant information "
+            "was retrieved from the medical knowledge base."
+        )
+
+    context_parts = []
+
+    for i, item in enumerate(results):
+
+        context_parts.append(
+            f"""
+SOURCE {i + 1}
+
+Condition:
+{item.get("condition", "Unknown")}
+
+Knowledge category:
+{item.get("category", "Unknown")}
+
+Information:
+{item.get("text", "")}
+
+Source:
+{item.get("source", "Unknown")}
+
+URL:
+{item.get("url", "")}
 """
         )
-    return "\n-----------------------\n".join(blocks)
 
-def unique_sources(results: List[Dict[str, Any]]) -> List[Tuple[str, str]]:
-    seen = set()
-    out = []
-    for x in results:
-        pair = (x.get("source", "Unknown source"), x.get("url", ""))
-        if pair not in seen:
-            seen.add(pair)
-            out.append(pair)
-    return out
+    return "\n-----------------------------\n".join(
+        context_parts
+    )
 
-def create_health_prompt(
-    question: str,
-    context: str,
-    language: str,
-    history: List[Dict[str, str]],
-) -> str:
-    recent = history[-6:]
-    history_text = "\n".join(
-        f"{m['role'].upper()}: {m['content']}" for m in recent
-    ) or "No previous conversation."
 
-    return f"""
-You are a careful, evidence-grounded health information assistant.
+# ============================================================
+# EMERGENCY DETECTION
+# ============================================================
 
-Your job is to explain health information, not to diagnose a person.
+EMERGENCY_KEYWORDS = [
 
-CORE RULES:
-- Use the retrieved medical knowledge as the primary factual source.
-- Do not invent medical facts unsupported by the retrieved knowledge.
-- Do not give a definitive diagnosis.
-- Do not prescribe medicines.
-- Do not provide medication doses or self-medication instructions.
-- Do not claim symptoms alone prove a disease.
-- If several conditions can look similar, say so briefly.
-- If the retrieved knowledge is insufficient, clearly say so.
-- If emergency warning signs are present, advise urgent professional medical evaluation.
-- Be calm, respectful, and non-alarming.
-- Answer the actual question first.
+    "difficulty breathing",
+    "cannot breathe",
+    "can't breathe",
+    "shortness of breath",
+    "severe breathing difficulty",
 
-{language_instruction(language)}
+    "chest pain",
+    "severe chest pain",
 
-RESPONSE STYLE:
-- Start with a direct answer in 1–2 sentences.
-- Use short bullets when helpful.
-- For simple questions, keep it short.
-- For normal questions, aim for about 150–250 words.
-- Do not force the same headings into every answer.
-- Avoid unnecessary repetition of disclaimers.
+    "severe bleeding",
+    "uncontrolled bleeding",
 
-RECENT CONVERSATION:
-{history_text}
+    "unconscious",
+    "loss of consciousness",
 
-USER QUESTION:
-{question}
+    "seizure",
 
-RETRIEVED MEDICAL KNOWLEDGE:
-{context}
+    "severe confusion",
+    "confusion",
+
+    "blue lips",
+    "bluish lips",
+
+    "fainting",
+    "passed out",
+
+    "severe allergic reaction",
+
+    "swelling of throat",
+    "throat swelling"
+]
+
+
+def emergency_check(text):
+
+    text = text.lower()
+
+    found = []
+
+    for keyword in EMERGENCY_KEYWORDS:
+
+        if keyword in text:
+            found.append(keyword)
+
+    return found
+
+
+# ============================================================
+# LANGUAGE INSTRUCTIONS
+# ============================================================
+
+def get_language_instruction(language):
+
+    if language == "Urdu":
+
+        return """
+LANGUAGE REQUIREMENT:
+
+Answer ONLY in Urdu.
+
+Use natural, easy-to-understand Urdu script.
+
+Use Markdown headings and bullet points.
+
+Do NOT write the complete response in English.
+
+Medical terms may be written in English in parentheses
+only when this makes the meaning clearer.
+
+Example:
+
+### ممکنہ وجوہات
+
+- وائرل انفیکشن
+- بیکٹیریا کی وجہ سے انفیکشن
 """
 
+    return """
+LANGUAGE REQUIREMENT:
+
+Answer ONLY in English.
+
+Use simple, clear English.
+
+Use Markdown headings and bullet points.
+"""
+
+
+# ============================================================
+# RESPONSE STRUCTURE
+# ============================================================
+
+def get_response_structure():
+
+    return """
+RESPONSE STRUCTURE:
+
+Your response MUST NOT be one large paragraph.
+
+Use a clear structure.
+
+Use only the sections that are relevant to the user's question.
+
+When appropriate, use these sections:
+
+### Category
+State the broad health category.
+
+Examples:
+- Infectious disease
+- Respiratory condition
+- Skin condition
+- Digestive condition
+- Nutritional condition
+- General health
+
+### Possible Causes
+Explain common or possible causes.
+
+Use bullet points.
+
+Do not claim that a cause is certain unless supported
+by the retrieved information.
+
+### Common Symptoms
+List important symptoms using bullet points.
+
+### Basic Healthcare
+Give general, low-risk healthcare and self-care guidance.
+
+Use bullet points where appropriate.
+
+Do NOT prescribe medication or give medication dosages.
+
+### When to See a Doctor
+Explain when professional medical evaluation may be appropriate.
+
+Clearly mention urgent warning signs when relevant.
+
+### Important
+Give a short safety limitation.
+
+Do not diagnose the user.
+
+IMPORTANT FORMATTING RULES:
+
+1. Never put the entire answer into one paragraph.
+2. Use Markdown headings.
+3. Use bullet points for lists.
+4. Keep paragraphs short.
+5. Leave a blank line between sections.
+6. Do not repeat the same information.
+7. Do not force irrelevant sections.
+8. Answer the user's actual question first.
+9. Keep normal answers around 150–250 words unless more detail is necessary.
+10. For simple questions, keep the answer shorter.
+"""
+
+
+# ============================================================
+# CHAT HISTORY
+# ============================================================
+
+def get_chat_history():
+
+    history = st.session_state.get(
+        "chat_history",
+        []
+    )
+
+    if not history:
+        return "No previous conversation."
+
+    recent_history = history[-6:]
+
+    formatted = []
+
+    for message in recent_history:
+
+        role = message.get(
+            "role",
+            "user"
+        )
+
+        content = message.get(
+            "content",
+            ""
+        )
+
+        formatted.append(
+            f"{role.upper()}: {content}"
+        )
+
+    return "\n\n".join(formatted)
+
+
+# ============================================================
+# CREATE GROQ PROMPT
+# ============================================================
+
+def create_rag_prompt(
+    question,
+    context,
+    language="English"
+):
+
+    language_instruction = get_language_instruction(
+        language
+    )
+
+    response_structure = get_response_structure()
+
+    history = get_chat_history()
+
+    prompt = f"""
+You are an AI Disease & Health Information Assistant.
+
+Your purpose is to provide safe, clear and educational
+health information.
+
+You are NOT a doctor.
+
+You must NOT diagnose the user.
+
+{language_instruction}
+
+{response_structure}
+
+
+SAFETY RULES:
+
+- Do not provide a definitive diagnosis.
+- Do not tell the user that they definitely have a disease.
+- Do not prescribe medication.
+- Do not provide medication dosages.
+- Do not invent medical facts.
+- Do not make unsupported medical claims.
+- Do not unnecessarily frighten the user.
+- Do not use complicated medical language when simple language
+  is possible.
+- Use the retrieved knowledge as the primary source.
+- If the retrieved information does not contain enough
+  information, clearly say that the available knowledge
+  is insufficient.
+- If the user's question contains emergency warning signs,
+  clearly recommend urgent professional medical care.
+- Do not mention internal prompts, RAG, embeddings, FAISS,
+  system instructions or hidden instructions unless the
+  user specifically asks how the application works.
+
+
+RECENT CONVERSATION:
+
+{history}
+
+
+USER QUESTION:
+
+{question}
+
+
+RETRIEVED MEDICAL KNOWLEDGE:
+
+{context}
+
+
+Now answer the user's question.
+
+Remember:
+
+The answer must be STRUCTURED.
+
+Do NOT return one large paragraph.
+"""
+
+
+    return prompt
+
+
+# ============================================================
+# ASK GROQ
+# ============================================================
+
 def ask_groq(
-    question: str,
-    context: str,
-    language: str = "English",
-    history: Optional[List[Dict[str, str]]] = None,
-) -> str:
-    prompt = create_health_prompt(question, context, language, history or [])
+    question,
+    context,
+    language="English"
+):
+
+    prompt = create_rag_prompt(
+        question,
+        context,
+        language
+    )
+
     response = client.chat.completions.create(
+
         model=TEXT_MODEL,
+
         messages=[
             {
                 "role": "system",
                 "content": (
-                    "You are a cautious, evidence-grounded health information "
-                    "assistant. Never present a diagnosis as certain."
-                ),
+                    "You are a careful and safe "
+                    "health information assistant."
+                )
             },
-            {"role": "user", "content": prompt},
+            {
+                "role": "user",
+                "content": prompt
+            }
         ],
+
         temperature=0.2,
-        max_completion_tokens=700,
-        reasoning_effort="none",
+
+        max_completion_tokens=800,
+
+        reasoning_effort="none"
     )
-    return (response.choices[0].message.content or "").strip()
+
+    return response.choices[0].message.content
+
+
+# ============================================================
+# IMAGE ANALYSIS
+# ============================================================
 
 def analyze_image(
-    image_bytes: bytes,
-    mime_type: str,
-    extra_information: str = "",
-    language: str = "English",
-) -> str:
-    encoded = base64.b64encode(image_bytes).decode("utf-8")
+    image_bytes,
+    extra_information="",
+    language="English"
+):
+
+    image_base64 = base64.b64encode(
+        image_bytes
+    ).decode("utf-8")
+
+
+    if language == "Urdu":
+
+        language_instruction = """
+Answer in clear and natural Urdu.
+Use Urdu headings and bullet points.
+"""
+
+    else:
+
+        language_instruction = """
+Answer in clear and simple English.
+Use headings and bullet points.
+"""
+
+
     prompt = f"""
 You are a cautious health image screening assistant.
 
-Analyze ONLY visible features. This is educational screening, not diagnosis.
+Analyze ONLY visible features in the uploaded image.
+
+{language_instruction}
 
 IMPORTANT:
-- Do not identify a disease with certainty.
-- Do not say an image proves a disease.
-- Do not prescribe medication or dosage.
-- Do not claim information that cannot be seen.
-- State uncertainty clearly.
-- If the image is blurry, dark, distant, obstructed, or not relevant to a
-  visible health/skin concern, say that the image is insufficient.
+
+- Do NOT provide a definitive diagnosis.
+- Do NOT claim that the image proves a disease.
+- Do NOT prescribe medication.
+- Do NOT provide medication dosages.
+- Clearly communicate uncertainty.
+- Do not identify a condition solely from appearance.
 - Recommend professional medical evaluation when appropriate.
 
-Describe:
-1. Visible observations
-2. Broad possible categories that may look similar
-3. Important missing information
-4. Warning signs requiring prompt medical attention
-5. When professional evaluation may be appropriate
 
-{language_instruction(language)}
+STRUCTURE YOUR RESPONSE:
+
+### Visible Observations
+
+Describe only what can actually be seen.
+
+### Possible Categories
+
+Mention broad categories of conditions that can sometimes
+have similar visible features.
+
+Do not say that the person definitely has any condition.
+
+### Important Missing Information
+
+Mention information that cannot be determined from the image,
+such as duration, symptoms, medical history or other relevant
+details.
+
+### Basic Healthcare
+
+Give only general, low-risk information when appropriate.
+
+### When to See a Doctor
+
+Mention warning signs or situations where professional
+evaluation is appropriate.
+
+### Important
+
+Clearly state that image screening cannot provide a diagnosis.
+
 
 Additional user information:
-{extra_information or "None provided."}
 
-Keep the response concise and patient-friendly.
+{extra_information}
 """
+
+
     response = client.chat.completions.create(
+
         model=VISION_MODEL,
+
         messages=[
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": prompt},
+
+                    {
+                        "type": "text",
+                        "text": prompt
+                    },
+
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": f"data:{mime_type};base64,{encoded}"
-                        },
-                    },
-                ],
+                            "url":
+                            "data:image/jpeg;base64,"
+                            + image_base64
+                        }
+                    }
+
+                ]
             }
         ],
+
         temperature=0.2,
-        max_completion_tokens=550,
-        reasoning_effort="none",
+
+        max_completion_tokens=700,
+
+        reasoning_effort="none"
     )
-    return (response.choices[0].message.content or "").strip()
+
+
+    return response.choices[0].message.content
+
+
+# ============================================================
+# SOURCES
+# ============================================================
+
+def get_unique_sources(results):
+
+    sources = []
+
+    for item in results:
+
+        source = {
+            "name": item.get(
+                "source",
+                "Unknown"
+            ),
+            "url": item.get(
+                "url",
+                ""
+            )
+        }
+
+        if source not in sources:
+            sources.append(source)
+
+    return sources
+
+
+# ============================================================
+# SESSION STATE
+# ============================================================
 
 if "chat_history" not in st.session_state:
+
     st.session_state.chat_history = []
-if "last_sources" not in st.session_state:
-    st.session_state.last_sources = []
+
+
+# ============================================================
+# SIDEBAR
+# ============================================================
 
 st.sidebar.title("🩺 Navigation")
+
+
 mode = st.sidebar.radio(
     "Choose a feature:",
-    ["Health Chat", "Image Screening", "How It Works"],
+    [
+        "Health Chat",
+        "Image Screening",
+        "How It Works"
+    ]
 )
-language = st.sidebar.selectbox("Response language:", ["English", "Urdu"])
 
-if mode == "Health Chat" and st.sidebar.button("Clear Conversation"):
+
+language = st.sidebar.selectbox(
+    "Response language:",
+    [
+        "English",
+        "Urdu"
+    ]
+)
+
+
+if st.sidebar.button(
+    "Clear Conversation"
+):
+
     st.session_state.chat_history = []
-    st.session_state.last_sources = []
+
     st.rerun()
 
-st.sidebar.divider()
-st.sidebar.caption("Knowledge-grounded health information")
-st.sidebar.caption(f"Knowledge records: {len(knowledge_base)}")
 
-st.title("🩺 AI Disease & Health Assistant")
-st.caption(
-    "RAG-based health information assistant with semantic search, "
-    "Groq AI, image screening, English/Urdu responses and safety checks."
-)
-st.warning(
-    "⚠️ Educational information only. This app does not diagnose disease, "
-    "prescribe treatment, or replace a qualified healthcare professional."
-)
+# ============================================================
+# HEALTH CHAT
+# ============================================================
 
 if mode == "Health Chat":
-    st.header("💬 Health Information Chat")
 
-    for message in st.session_state.chat_history:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-
-    question = st.chat_input(
-        "Ask a health question… / صحت سے متعلق سوال پوچھیں…"
+    st.header(
+        "💬 Health Information Chat"
     )
 
-    if question:
-        question = question.strip()
-        previous_history = list(st.session_state.chat_history)
-        st.session_state.chat_history.append(
-            {"role": "user", "content": question}
+    st.write(
+        "Ask questions about diseases, symptoms, "
+        "prevention and general health."
+    )
+
+
+    # Display previous conversation
+    if st.session_state.chat_history:
+
+        st.subheader(
+            "Conversation"
         )
-        emergency = emergency_check(question)
 
-        with st.chat_message("user"):
-            st.markdown(question)
+        for message in st.session_state.chat_history:
 
-        with st.chat_message("assistant"):
-            try:
-                with st.spinner("Searching medical knowledge…"):
-                    results = search_knowledge(
-                        question, top_k=5, min_score=0.28
-                    )
-                    context = build_context(results)
+            if message["role"] == "user":
 
-                if not results:
-                    st.info(
-                        "I could not find sufficiently relevant information "
-                        "in the current medical knowledge base."
+                with st.chat_message("user"):
+                    st.markdown(
+                        message["content"]
                     )
 
-                with st.spinner("Preparing a response…"):
+            else:
+
+                with st.chat_message("assistant"):
+                    st.markdown(
+                        message["content"]
+                    )
+
+
+    question = st.text_area(
+
+        "Enter your health question:",
+
+        height=120,
+
+        placeholder=(
+            "Example: What are the common symptoms "
+            "of dengue and when should someone see a doctor?"
+        )
+    )
+
+
+    if st.button(
+        "Get Health Information",
+        type="primary"
+    ):
+
+        if not question.strip():
+
+            st.warning(
+                "Please enter a health question."
+            )
+
+        else:
+
+            with st.spinner(
+                "Searching medical knowledge..."
+            ):
+
+                emergency = emergency_check(
+                    question
+                )
+
+                results = search_knowledge(
+                    question,
+                    top_k=5,
+                    minimum_score=0.25
+                )
+
+                context = build_context(
+                    results
+                )
+
+
+            with st.spinner(
+                "Generating structured response..."
+            ):
+
+                try:
+
                     answer = ask_groq(
-                        question, context, language, previous_history
+                        question,
+                        context,
+                        language
                     )
 
-                if emergency:
+                except Exception as e:
+
                     st.error(
-                        "⚠️ Possible emergency warning signs detected. "
-                        "Please seek urgent professional medical care."
+                        "Unable to generate a response."
                     )
 
-                st.markdown(answer)
-                st.session_state.chat_history.append(
-                    {"role": "assistant", "content": answer}
+                    st.code(
+                        str(e)
+                    )
+
+                    st.stop()
+
+
+            # Save conversation
+            st.session_state.chat_history.append(
+                {
+                    "role": "user",
+                    "content": question
+                }
+            )
+
+            st.session_state.chat_history.append(
+                {
+                    "role": "assistant",
+                    "content": answer
+                }
+            )
+
+
+            # Emergency warning
+            if emergency:
+
+                if language == "Urdu":
+
+                    st.error(
+                        "⚠️ ممکنہ ہنگامی علامات کا پتہ چلا ہے۔ "
+                        "براہِ کرم فوری طور پر طبی مدد حاصل کریں۔"
+                    )
+
+                else:
+
+                    st.error(
+                        "⚠️ Possible emergency warning signs "
+                        "were detected. Please seek urgent "
+                        "professional medical care."
+                    )
+
+
+            st.subheader(
+                "🩺 Health Information"
+            )
+
+            st.markdown(
+                answer
+            )
+
+
+            # RAG retrieval
+            if results:
+
+                with st.expander(
+                    "🔍 Show Retrieved Medical Knowledge"
+                ):
+
+                    for item in results:
+
+                        score = item.get(
+                            "similarity_score",
+                            0
+                        )
+
+                        st.markdown(
+                            f"**{item.get('condition', 'Unknown')}** "
+                            f"— {item.get('category', 'Unknown')}"
+                        )
+
+                        st.caption(
+                            f"Relevance score: {score:.2f}"
+                        )
+
+                        st.write(
+                            item.get(
+                                "text",
+                                ""
+                            )
+                        )
+
+                        st.divider()
+
+
+            # Sources
+            sources = get_unique_sources(
+                results
+            )
+
+            if sources:
+
+                st.subheader(
+                    "📚 Medical Sources"
                 )
-                st.session_state.last_sources = results
 
-            except Exception as exc:
-                st.error("The AI service could not generate a response right now.")
-                st.caption(f"Technical detail: {exc}")
+                for source in sources:
 
-    if st.session_state.last_sources:
-        st.divider()
-        with st.expander("🔍 RAG retrieval details"):
-            for item in st.session_state.last_sources:
-                st.markdown(
-                    f"**{item['condition']} — {item['category']}** "
-                    f"(similarity: {item.get('_score', 0):.2f})"
-                )
-                st.write(item["text"])
+                    if source["url"]:
 
-        st.subheader("📚 Sources")
-        for name, url in unique_sources(st.session_state.last_sources):
-            st.markdown(f"- **{name}** — {url}")
+                        st.markdown(
+                            f"- **{source['name']}** — "
+                            f"{source['url']}"
+                        )
+
+                    else:
+
+                        st.markdown(
+                            f"- **{source['name']}**"
+                        )
+
+
+# ============================================================
+# IMAGE SCREENING
+# ============================================================
 
 elif mode == "Image Screening":
-    st.header("🖼️ AI Image Screening")
+
+    st.header(
+        "🖼️ AI Image Screening"
+    )
+
     st.info(
-        "Upload a clear image of a visible skin/health concern. The AI "
-        "describes visible features and provides general educational "
-        "information. It does not diagnose disease."
+        "Upload an image of a visible skin concern. "
+        "The AI will describe visible features and provide "
+        "general educational information. It does not "
+        "diagnose disease."
     )
 
-    uploaded = st.file_uploader(
-        "Upload image",
-        type=["jpg", "jpeg", "png", "webp"],
+
+    uploaded_image = st.file_uploader(
+
+        "Upload an image",
+
+        type=[
+            "jpg",
+            "jpeg",
+            "png"
+        ]
     )
-    extra = st.text_area(
-        "Additional information (optional)",
+
+
+    extra_information = st.text_area(
+
+        "Additional information (optional):",
+
         placeholder=(
-            "Example: The area has been itchy for three days."
-        ),
+            "Example: The area has been itchy "
+            "for three days."
+        )
     )
 
-    if uploaded:
-        data = uploaded.getvalue()
-        if len(data) > MAX_IMAGE_BYTES:
-            st.error("Please upload an image smaller than 4 MB.")
+
+    if uploaded_image:
+
+        image_bytes = (
+            uploaded_image.getvalue()
+        )
+
+
+        # File size limit
+        if len(image_bytes) > 4 * 1024 * 1024:
+
+            st.error(
+                "Image is too large. "
+                "Please upload an image smaller than 4 MB."
+            )
+
             st.stop()
 
+
+        # Validate image
         try:
-            image = Image.open(uploaded)
+
+            image = Image.open(
+                uploaded_image
+            )
+
             image.verify()
+
         except Exception:
-            st.error("The uploaded file is not a valid readable image.")
+
+            st.error(
+                "The uploaded file is not a valid image."
+            )
+
             st.stop()
 
-        uploaded.seek(0)
-        st.image(uploaded, caption="Uploaded image", width="stretch")
 
-        if st.button("Analyze Image", type="primary"):
-            try:
-                with st.spinner("Analyzing visible features…"):
-                    findings = analyze_image(
-                        data,
-                        uploaded.type or "image/jpeg",
-                        extra,
-                        language,
+        # Display image
+        st.image(
+            uploaded_image,
+            caption="Uploaded image",
+            width="stretch"
+        )
+
+
+        if st.button(
+            "Analyze Image",
+            type="primary"
+        ):
+
+            with st.spinner(
+                "Analyzing visible features..."
+            ):
+
+                try:
+
+                    visual_findings = analyze_image(
+                        image_bytes,
+                        extra_information,
+                        language
                     )
 
-                st.subheader("🔎 Visual Screening")
-                st.markdown(findings)
+                except Exception as e:
 
-                with st.spinner("Searching medical knowledge…"):
-                    results = search_knowledge(
-                        findings, top_k=5, min_score=0.28
-                    )
-                    context = build_context(results)
-
-                with st.spinner("Preparing related health information…"):
-                    final_answer = ask_groq(
-                        findings, context, language, []
+                    st.error(
+                        "Unable to analyze the image."
                     )
 
-                st.subheader("🩺 Related Health Information")
-                st.markdown(final_answer)
-
-                if results:
-                    with st.expander("🔍 RAG retrieval details"):
-                        for item in results:
-                            st.markdown(
-                                f"**{item['condition']} — {item['category']}** "
-                                f"(similarity: {item.get('_score', 0):.2f})"
-                            )
-                            st.write(item["text"])
-
-                    st.subheader("📚 Sources")
-                    for name, url in unique_sources(results):
-                        st.markdown(f"- **{name}** — {url}")
-                else:
-                    st.info(
-                        "No sufficiently relevant article was found in the "
-                        "current knowledge base."
+                    st.code(
+                        str(e)
                     )
-            except Exception as exc:
-                st.error(
-                    "The image screening service could not complete the request."
+
+                    st.stop()
+
+
+            st.subheader(
+                "🔎 Visual Screening"
+            )
+
+            st.markdown(
+                visual_findings
+            )
+
+
+            # Search knowledge base
+            with st.spinner(
+                "Searching related medical knowledge..."
+            ):
+
+                results = search_knowledge(
+                    visual_findings,
+                    top_k=5,
+                    minimum_score=0.25
                 )
-                st.caption(f"Technical detail: {exc}")
 
-else:
-    st.header("🧠 How the AI Works")
+                context = build_context(
+                    results
+                )
+
+
+            # Generate final response
+            with st.spinner(
+                "Generating health information..."
+            ):
+
+                try:
+
+                    final_answer = ask_groq(
+                        visual_findings,
+                        context,
+                        language
+                    )
+
+                except Exception as e:
+
+                    st.error(
+                        "Unable to generate related "
+                        "health information."
+                    )
+
+                    st.code(
+                        str(e)
+                    )
+
+                    st.stop()
+
+
+            st.subheader(
+                "🩺 Related Health Information"
+            )
+
+            st.markdown(
+                final_answer
+            )
+
+
+            # Retrieval
+            if results:
+
+                with st.expander(
+                    "🔍 Show Retrieved Medical Knowledge"
+                ):
+
+                    for item in results:
+
+                        score = item.get(
+                            "similarity_score",
+                            0
+                        )
+
+                        st.markdown(
+                            f"**{item.get('condition', 'Unknown')}** "
+                            f"— {item.get('category', 'Unknown')}"
+                        )
+
+                        st.caption(
+                            f"Relevance score: {score:.2f}"
+                        )
+
+                        st.write(
+                            item.get(
+                                "text",
+                                ""
+                            )
+                        )
+
+                        st.divider()
+
+
+            # Sources
+            sources = get_unique_sources(
+                results
+            )
+
+            if sources:
+
+                st.subheader(
+                    "📚 Medical Sources"
+                )
+
+                for source in sources:
+
+                    if source["url"]:
+
+                        st.markdown(
+                            f"- **{source['name']}** — "
+                            f"{source['url']}"
+                        )
+
+                    else:
+
+                        st.markdown(
+                            f"- **{source['name']}**"
+                        )
+
+
+# ============================================================
+# HOW IT WORKS
+# ============================================================
+
+elif mode == "How It Works":
+
+    st.header(
+        "⚙️ How the AI Disease & Health Assistant Works"
+    )
+
+
+    st.write(
+        "This application combines semantic search, "
+        "a medical knowledge base and a generative AI model."
+    )
+
+
+    st.subheader(
+        "1. User Question"
+    )
+
+    st.write(
+        "The user enters a health-related question "
+        "in English or Urdu."
+    )
+
+
+    st.subheader(
+        "2. Sentence Transformer"
+    )
+
+    st.write(
+        "The question is converted into a numerical "
+        "embedding that represents its meaning."
+    )
+
+
+    st.subheader(
+        "3. FAISS Semantic Search"
+    )
+
+    st.write(
+        "FAISS searches the medical knowledge base "
+        "for information that is semantically relevant "
+        "to the user's question."
+    )
+
+
+    st.subheader(
+        "4. Medical Knowledge"
+    )
+
+    st.write(
+        "The most relevant knowledge-base records are "
+        "provided to the language model as context."
+    )
+
+
+    st.subheader(
+        "5. Groq + Qwen"
+    )
+
+    st.write(
+        "Groq runs the language model, which uses the "
+        "retrieved information to generate a natural-language "
+        "response."
+    )
+
+
+    st.subheader(
+        "6. Structured Response"
+    )
+
+    st.write(
+        "The response is instructed to organize information "
+        "into useful sections such as:"
+    )
+
     st.markdown(
         """
-### 1. User input
-The user asks a health question or uploads an image.
-
-### 2. Semantic retrieval
-A Sentence Transformer converts text into an embedding. FAISS searches the
-medical knowledge base for semantically similar information.
-
-### 3. Relevance filtering
-A similarity threshold removes weak or unrelated retrieval results.
-
-### 4. Groq AI
-The retrieved information is supplied to the language model with instructions
-to avoid diagnosis, prescriptions and unsupported claims.
-
-### 5. Safety layer
-The app checks the user's message for common emergency warning phrases.
-
-### 6. Image screening
-The vision model describes visible features first. Those findings are then
-used as the query for the RAG system before the final response.
-
-### Architecture
-
-`User → Sentence Transformer → FAISS → Medical Knowledge → Groq → Response`
-
-Image flow:
-
-`Image → Groq Vision → Visible Findings → FAISS → Medical Knowledge → Groq`
-"""
+        - **Category**
+        - **Possible Causes**
+        - **Common Symptoms**
+        - **Basic Healthcare**
+        - **When to See a Doctor**
+        - **Important**
+        """
     )
-    st.success(
-        "The system is designed as a health-information assistant, "
-        "not an automated diagnostic system."
+
+
+    st.subheader(
+        "7. Safety Layer"
     )
+
+    st.write(
+        "The application also checks user questions for "
+        "potential emergency warning signs and displays "
+        "an urgent-care warning when appropriate."
+    )
+
+
+    st.subheader(
+        "8. Image Screening"
+    )
+
+    st.write(
+        "For uploaded images, the multimodal AI analyzes "
+        "visible features only. It does not treat an image "
+        "as proof of a diagnosis."
+    )
+
+
+    st.divider()
+
+
+    st.subheader(
+        "Architecture"
+    )
+
+    st.code(
+        """
+User
+  ↓
+Streamlit Interface
+  ↓
+Sentence Transformer
+  ↓
+FAISS Semantic Search
+  ↓
+Medical Knowledge Base
+  ↓
+Relevant Context
+  ↓
+Groq / Qwen
+  ↓
+Structured Health Information
+        """,
+        language="text"
+    )
+
+
+# ============================================================
+# FOOTER
+# ============================================================
 
 st.divider()
+
 st.caption(
-    "AI Disease & Health Assistant | Educational use only | "
+    "🩺 AI Disease & Health Assistant | "
+    "Educational use only | "
     "Not a substitute for professional medical care"
 )
