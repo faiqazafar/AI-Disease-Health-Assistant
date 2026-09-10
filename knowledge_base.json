@@ -10,7 +10,7 @@
   {
     "id": "dengue_002",
     "condition": "Dengue",
-    "category": "Symptoms",
+    "category": "Common Symptoms",
     "text": "Common dengue symptoms include high fever, headache, pain behind the eyes, muscle and joint pain, nausea and skin rash.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
@@ -18,11 +18,28 @@
   {
     "id": "dengue_003",
     "condition": "Dengue",
+    "category": "Possible Causes",
+    "text": "Dengue is caused by dengue viruses and is transmitted to people mainly through the bites of infected Aedes mosquitoes.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
+  },
+  {
+    "id": "dengue_004",
+    "condition": "Dengue",
     "category": "Warning Signs",
     "text": "Warning signs of severe dengue can include severe abdominal pain, persistent vomiting, bleeding, rapid breathing, weakness or restlessness. Serious warning signs require urgent medical evaluation.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
   },
+  {
+    "id": "dengue_005",
+    "condition": "Dengue",
+    "category": "Prevention",
+    "text": "Dengue prevention focuses on avoiding mosquito bites and reducing mosquito breeding sites around homes and communities.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
+  },
+
   {
     "id": "malaria_001",
     "condition": "Malaria",
@@ -34,11 +51,36 @@
   {
     "id": "malaria_002",
     "condition": "Malaria",
-    "category": "Symptoms",
+    "category": "Common Symptoms",
     "text": "Malaria commonly causes fever, chills and headache. Other symptoms can include sweating, weakness, nausea and body aches.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/malaria"
   },
+  {
+    "id": "malaria_003",
+    "condition": "Malaria",
+    "category": "Possible Causes",
+    "text": "Malaria is caused by Plasmodium parasites and is transmitted mainly through the bites of infected female Anopheles mosquitoes.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/malaria"
+  },
+  {
+    "id": "malaria_004",
+    "condition": "Malaria",
+    "category": "Warning Signs",
+    "text": "Severe malaria can become life-threatening and requires urgent medical assessment, particularly when a person becomes severely weak, confused or develops serious breathing or neurological problems.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/malaria"
+  },
+  {
+    "id": "malaria_005",
+    "condition": "Malaria",
+    "category": "Prevention",
+    "text": "Malaria prevention includes reducing exposure to mosquitoes and using appropriate mosquito-control measures in areas where malaria occurs.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/malaria"
+  },
+
   {
     "id": "diabetes_001",
     "condition": "Diabetes",
@@ -50,11 +92,36 @@
   {
     "id": "diabetes_002",
     "condition": "Diabetes",
-    "category": "Symptoms",
+    "category": "Common Symptoms",
     "text": "Common symptoms of diabetes can include increased thirst, frequent urination, increased hunger, tiredness, blurred vision and unexplained weight changes.",
     "source": "World Health Organization",
     "url": "https://www.who.int/health-topics/diabetes"
   },
+  {
+    "id": "diabetes_003",
+    "condition": "Diabetes",
+    "category": "Possible Causes",
+    "text": "Different forms of diabetes have different causes. Type 1 diabetes involves an autoimmune process that affects insulin production, while type 2 diabetes involves problems with insulin use and production.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/diabetes"
+  },
+  {
+    "id": "diabetes_004",
+    "condition": "Diabetes",
+    "category": "Basic Healthcare",
+    "text": "Diabetes management can involve healthy eating, regular physical activity, monitoring blood glucose when advised, and following an individualized treatment plan from a healthcare professional.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/diabetes"
+  },
+  {
+    "id": "diabetes_005",
+    "condition": "Diabetes",
+    "category": "When to See a Doctor",
+    "text": "Persistent symptoms such as excessive thirst, frequent urination, unexplained changes in weight or ongoing fatigue should be discussed with a healthcare professional and may require blood glucose testing.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/diabetes"
+  },
+
   {
     "id": "asthma_001",
     "condition": "Asthma",
@@ -66,11 +133,36 @@
   {
     "id": "asthma_002",
     "condition": "Asthma",
-    "category": "Symptoms",
+    "category": "Common Symptoms",
     "text": "Asthma symptoms can include coughing, wheezing, shortness of breath and chest tightness. Symptoms can vary over time and may have different triggers.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/asthma"
   },
+  {
+    "id": "asthma_003",
+    "condition": "Asthma",
+    "category": "Possible Causes",
+    "text": "Asthma symptoms may be triggered by allergens, tobacco smoke, air pollution, respiratory infections, exercise, cold air and other environmental factors.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/asthma"
+  },
+  {
+    "id": "asthma_004",
+    "condition": "Asthma",
+    "category": "Basic Healthcare",
+    "text": "Asthma care commonly involves identifying and reducing triggers, monitoring symptoms and following the asthma management plan provided by a healthcare professional.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/asthma"
+  },
+  {
+    "id": "asthma_005",
+    "condition": "Asthma",
+    "category": "Warning Signs",
+    "text": "Severe difficulty breathing or rapidly worsening breathing symptoms require urgent medical attention.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/asthma"
+  },
+
   {
     "id": "influenza_001",
     "condition": "Influenza",
@@ -82,11 +174,28 @@
   {
     "id": "influenza_002",
     "condition": "Influenza",
-    "category": "Symptoms",
+    "category": "Common Symptoms",
     "text": "Influenza can cause sudden fever, cough, sore throat, muscle aches, headache, chills and fatigue.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/influenza-seasonal"
   },
+  {
+    "id": "influenza_003",
+    "condition": "Influenza",
+    "category": "Possible Causes",
+    "text": "Influenza is caused by influenza viruses and spreads mainly through respiratory droplets and particles from infected people.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/influenza-seasonal"
+  },
+  {
+    "id": "influenza_004",
+    "condition": "Influenza",
+    "category": "Prevention",
+    "text": "Influenza prevention includes appropriate vaccination, hand hygiene, respiratory hygiene and avoiding close contact with people who are sick when possible.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/influenza-seasonal"
+  },
+
   {
     "id": "tb_001",
     "condition": "Tuberculosis",
@@ -98,11 +207,28 @@
   {
     "id": "tb_002",
     "condition": "Tuberculosis",
-    "category": "Symptoms",
+    "category": "Common Symptoms",
     "text": "Pulmonary tuberculosis can cause prolonged cough, chest pain, weakness, fatigue, weight loss, fever and night sweats.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/tuberculosis"
   },
+  {
+    "id": "tb_003",
+    "condition": "Tuberculosis",
+    "category": "Possible Causes",
+    "text": "Tuberculosis is caused by Mycobacterium tuberculosis bacteria and commonly spreads through the air when people with infectious pulmonary disease cough or sneeze.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/tuberculosis"
+  },
+  {
+    "id": "tb_004",
+    "condition": "Tuberculosis",
+    "category": "When to See a Doctor",
+    "text": "A persistent cough, unexplained weight loss, prolonged fever or night sweats should be medically evaluated, particularly when tuberculosis exposure or risk is possible.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/tuberculosis"
+  },
+
   {
     "id": "pneumonia_001",
     "condition": "Pneumonia",
@@ -114,11 +240,28 @@
   {
     "id": "pneumonia_002",
     "condition": "Pneumonia",
-    "category": "Symptoms",
+    "category": "Common Symptoms",
     "text": "Pneumonia can cause cough, difficulty breathing, fever, chills and chest discomfort. Symptoms vary with the cause and the person.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/pneumonia"
   },
+  {
+    "id": "pneumonia_003",
+    "condition": "Pneumonia",
+    "category": "Possible Causes",
+    "text": "Pneumonia may be caused by bacteria, viruses or other infectious organisms. The specific cause can vary between people.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/pneumonia"
+  },
+  {
+    "id": "pneumonia_004",
+    "condition": "Pneumonia",
+    "category": "Warning Signs",
+    "text": "Significant difficulty breathing, confusion, severe weakness or rapidly worsening symptoms require urgent medical evaluation.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/pneumonia"
+  },
+
   {
     "id": "hypertension_001",
     "condition": "Hypertension",
@@ -130,11 +273,28 @@
   {
     "id": "hypertension_002",
     "condition": "Hypertension",
-    "category": "Symptoms",
+    "category": "Common Symptoms",
     "text": "Many people with hypertension have no noticeable symptoms. Very high blood pressure can sometimes be associated with headache, blurred vision or other serious symptoms.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
   },
+  {
+    "id": "hypertension_003",
+    "condition": "Hypertension",
+    "category": "Risk Factors",
+    "text": "Risk factors for high blood pressure can include unhealthy diet, high salt intake, physical inactivity, tobacco use, harmful alcohol use and other health or genetic factors.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+  },
+  {
+    "id": "hypertension_004",
+    "condition": "Hypertension",
+    "category": "Basic Healthcare",
+    "text": "Healthy eating, reducing excessive salt intake, regular physical activity, avoiding tobacco and following professional medical advice can support blood pressure control.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+  },
+
   {
     "id": "hepatitis_001",
     "condition": "Viral Hepatitis",
@@ -143,6 +303,31 @@
     "source": "World Health Organization",
     "url": "https://www.who.int/health-topics/hepatitis"
   },
+  {
+    "id": "hepatitis_002",
+    "condition": "Viral Hepatitis",
+    "category": "Common Symptoms",
+    "text": "Viral hepatitis may cause tiredness, nausea, abdominal discomfort, dark urine, pale stools and yellowing of the skin or eyes. Some infections may cause few or no symptoms.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/hepatitis"
+  },
+  {
+    "id": "hepatitis_003",
+    "condition": "Viral Hepatitis",
+    "category": "Possible Causes",
+    "text": "Viral hepatitis is caused by hepatitis viruses. Hepatitis A, B, C, D and E have different patterns of transmission and health effects.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/hepatitis"
+  },
+  {
+    "id": "hepatitis_004",
+    "condition": "Viral Hepatitis",
+    "category": "When to See a Doctor",
+    "text": "Persistent symptoms suggestive of liver disease, including yellowing of the skin or eyes, unexplained fatigue or abdominal symptoms, should be evaluated by a healthcare professional.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/hepatitis"
+  },
+
   {
     "id": "diarrhea_001",
     "condition": "Diarrhoeal Disease",
@@ -154,11 +339,36 @@
   {
     "id": "diarrhea_002",
     "condition": "Diarrhoeal Disease",
+    "category": "Common Symptoms",
+    "text": "Diarrhoeal illness commonly involves loose or watery stools and may also cause abdominal cramps, nausea, vomiting or fever depending on the cause.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/diarrhoeal-disease"
+  },
+  {
+    "id": "diarrhea_003",
+    "condition": "Diarrhoeal Disease",
+    "category": "Basic Healthcare",
+    "text": "Replacing lost fluids is important during diarrhoeal illness. Oral rehydration solutions can help prevent dehydration when appropriate.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/diarrhoeal-disease"
+  },
+  {
+    "id": "diarrhea_004",
+    "condition": "Diarrhoeal Disease",
     "category": "Prevention",
     "text": "Safe drinking water, sanitation, handwashing and food hygiene are important measures for reducing diarrhoeal disease.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/diarrhoeal-disease"
   },
+  {
+    "id": "diarrhea_005",
+    "condition": "Diarrhoeal Disease",
+    "category": "Warning Signs",
+    "text": "Signs of significant dehydration, blood in stool, severe weakness or persistent symptoms require medical evaluation.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/diarrhoeal-disease"
+  },
+
   {
     "id": "anemia_001",
     "condition": "Anaemia",
@@ -168,6 +378,31 @@
     "url": "https://www.who.int/health-topics/anaemia"
   },
   {
+    "id": "anemia_002",
+    "condition": "Anaemia",
+    "category": "Common Symptoms",
+    "text": "Anaemia can be associated with tiredness, weakness, dizziness, shortness of breath and reduced ability to perform physical activities.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/anaemia"
+  },
+  {
+    "id": "anemia_003",
+    "condition": "Anaemia",
+    "category": "Possible Causes",
+    "text": "Anaemia can have several causes, including nutritional deficiencies, blood loss, infections, chronic diseases and inherited conditions.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/anaemia"
+  },
+  {
+    "id": "anemia_004",
+    "condition": "Anaemia",
+    "category": "When to See a Doctor",
+    "text": "Persistent tiredness, weakness, dizziness or shortness of breath should be discussed with a healthcare professional because different causes of anaemia require different evaluation.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/anaemia"
+  },
+
+  {
     "id": "eczema_001",
     "condition": "Eczema",
     "category": "Overview",
@@ -175,6 +410,23 @@
     "source": "National Institute of Arthritis and Musculoskeletal and Skin Diseases",
     "url": "https://www.niams.nih.gov/health-topics/atopic-dermatitis"
   },
+  {
+    "id": "eczema_002",
+    "condition": "Eczema",
+    "category": "Common Symptoms",
+    "text": "Eczema may cause dry skin, itching, redness, irritation and inflamed areas of skin. Symptoms can vary over time.",
+    "source": "National Institute of Arthritis and Musculoskeletal and Skin Diseases",
+    "url": "https://www.niams.nih.gov/health-topics/atopic-dermatitis"
+  },
+  {
+    "id": "eczema_003",
+    "condition": "Eczema",
+    "category": "Basic Healthcare",
+    "text": "Skin care for eczema commonly includes regular moisturizing, avoiding known irritants and following a healthcare professional's treatment plan when symptoms are significant.",
+    "source": "National Institute of Arthritis and Musculoskeletal and Skin Diseases",
+    "url": "https://www.niams.nih.gov/health-topics/atopic-dermatitis"
+  },
+
   {
     "id": "acne_001",
     "condition": "Acne",
@@ -184,6 +436,31 @@
     "url": "https://medlineplus.gov/acne.html"
   },
   {
+    "id": "acne_002",
+    "condition": "Acne",
+    "category": "Common Symptoms",
+    "text": "Acne can appear as blackheads, whiteheads, pimples and deeper inflammatory lesions, commonly affecting areas such as the face, chest and back.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/acne.html"
+  },
+  {
+    "id": "acne_003",
+    "condition": "Acne",
+    "category": "Possible Causes",
+    "text": "Acne is associated with blocked hair follicles, oil production, skin-cell changes and inflammation. Hormonal changes can influence acne.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/acne.html"
+  },
+  {
+    "id": "acne_004",
+    "condition": "Acne",
+    "category": "When to See a Doctor",
+    "text": "Severe, persistent or scarring acne may benefit from assessment by a healthcare professional or dermatologist.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/acne.html"
+  },
+
+  {
     "id": "dehydration_001",
     "condition": "Dehydration",
     "category": "Overview",
@@ -191,6 +468,31 @@
     "source": "MedlinePlus",
     "url": "https://medlineplus.gov/dehydration.html"
   },
+  {
+    "id": "dehydration_002",
+    "condition": "Dehydration",
+    "category": "Common Symptoms",
+    "text": "Dehydration can cause thirst, dry mouth, reduced urination, dark urine, tiredness, dizziness and weakness.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/dehydration.html"
+  },
+  {
+    "id": "dehydration_003",
+    "condition": "Dehydration",
+    "category": "Possible Causes",
+    "text": "Dehydration can result from vomiting, diarrhoea, sweating, fever, inadequate fluid intake or conditions that increase fluid loss.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/dehydration.html"
+  },
+  {
+    "id": "dehydration_004",
+    "condition": "Dehydration",
+    "category": "Warning Signs",
+    "text": "Severe dehydration can be serious. Markedly reduced urination, severe weakness, confusion or inability to keep fluids down require prompt medical attention.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/dehydration.html"
+  },
+
   {
     "id": "cold_001",
     "condition": "Common Cold",
@@ -200,21 +502,88 @@
     "url": "https://medlineplus.gov/commoncold.html"
   },
   {
+    "id": "cold_002",
+    "condition": "Common Cold",
+    "category": "Common Symptoms",
+    "text": "Common cold symptoms can include runny nose, blocked nose, sneezing, sore throat, cough and mild tiredness.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/commoncold.html"
+  },
+  {
+    "id": "cold_003",
+    "condition": "Common Cold",
+    "category": "Possible Causes",
+    "text": "The common cold is caused by viruses and can spread through respiratory droplets, contaminated surfaces and close contact with infected people.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/commoncold.html"
+  },
+  {
+    "id": "cold_004",
+    "condition": "Common Cold",
+    "category": "Basic Healthcare",
+    "text": "Rest, adequate fluids and general supportive care can help with common cold symptoms. Persistent or severe symptoms may require medical assessment.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/commoncold.html"
+  },
+
+  {
     "id": "headache_001",
     "condition": "Headache",
-    "category": "General Symptom",
+    "category": "Overview",
     "text": "Headache is pain in the head or upper neck. Many different conditions can cause headaches, and the pattern and accompanying symptoms matter when evaluating the cause.",
     "source": "MedlinePlus",
     "url": "https://medlineplus.gov/headache.html"
   },
   {
+    "id": "headache_002",
+    "condition": "Headache",
+    "category": "Possible Causes",
+    "text": "Headaches can have many causes, including tension, migraine, illness, dehydration, sleep problems, stress and other medical conditions.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/headache.html"
+  },
+  {
+    "id": "headache_003",
+    "condition": "Headache",
+    "category": "Warning Signs",
+    "text": "A sudden, extremely severe headache or a headache accompanied by serious neurological symptoms should receive urgent medical evaluation.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/headache.html"
+  },
+
+  {
     "id": "fever_001",
     "condition": "Fever",
-    "category": "General Symptom",
+    "category": "Overview",
     "text": "Fever is a temporary increase in body temperature that can occur as part of the body's response to illness or infection.",
     "source": "MedlinePlus",
     "url": "https://medlineplus.gov/fever.html"
   },
+  {
+    "id": "fever_002",
+    "condition": "Fever",
+    "category": "Possible Causes",
+    "text": "Fever can occur with infections and other illnesses. The underlying cause depends on the person's symptoms and overall situation.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/fever.html"
+  },
+  {
+    "id": "fever_003",
+    "condition": "Fever",
+    "category": "Common Symptoms",
+    "text": "Fever may occur with chills, sweating, headache, weakness, muscle aches or other symptoms depending on its cause.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/fever.html"
+  },
+  {
+    "id": "fever_004",
+    "condition": "Fever",
+    "category": "When to See a Doctor",
+    "text": "Persistent, very high or unexplained fever, especially when accompanied by serious symptoms, should be assessed by a healthcare professional.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/fever.html"
+  },
+
   {
     "id": "food_001",
     "condition": "Food Poisoning",
@@ -226,11 +595,36 @@
   {
     "id": "food_002",
     "condition": "Food Poisoning",
-    "category": "Symptoms",
+    "category": "Common Symptoms",
     "text": "Foodborne illness may cause nausea, vomiting, diarrhoea, abdominal pain or cramps and fever. Severity varies by cause and person.",
     "source": "MedlinePlus",
     "url": "https://medlineplus.gov/foodborneillness.html"
   },
+  {
+    "id": "food_003",
+    "condition": "Food Poisoning",
+    "category": "Possible Causes",
+    "text": "Food poisoning can be caused by harmful bacteria, viruses, parasites or toxins in contaminated food or water.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/foodborneillness.html"
+  },
+  {
+    "id": "food_004",
+    "condition": "Food Poisoning",
+    "category": "Basic Healthcare",
+    "text": "Maintaining adequate fluid intake is important when vomiting or diarrhoea causes fluid loss. Persistent or severe illness requires medical assessment.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/foodborneillness.html"
+  },
+  {
+    "id": "food_005",
+    "condition": "Food Poisoning",
+    "category": "Warning Signs",
+    "text": "Severe dehydration, blood in stool or vomit, severe abdominal symptoms, confusion or persistent inability to keep fluids down require medical attention.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/foodborneillness.html"
+  },
+
   {
     "id": "vitd_001",
     "condition": "Vitamin D",
@@ -240,6 +634,23 @@
     "url": "https://medlineplus.gov/vitamind.html"
   },
   {
+    "id": "vitd_002",
+    "condition": "Vitamin D",
+    "category": "Possible Deficiency Signs",
+    "text": "Low vitamin D may affect bone health. Symptoms can be absent or nonspecific, so laboratory testing may be needed when deficiency is suspected.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/vitamind.html"
+  },
+  {
+    "id": "vitd_003",
+    "condition": "Vitamin D",
+    "category": "Basic Healthcare",
+    "text": "Vitamin D status can be supported through appropriate dietary sources, safe sunlight exposure and supplements when recommended by a healthcare professional.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/vitamind.html"
+  },
+
+  {
     "id": "iron_001",
     "condition": "Iron",
     "category": "General Information",
@@ -247,6 +658,23 @@
     "source": "MedlinePlus",
     "url": "https://medlineplus.gov/iron.html"
   },
+  {
+    "id": "iron_002",
+    "condition": "Iron",
+    "category": "Possible Deficiency Signs",
+    "text": "Iron deficiency can be associated with tiredness, weakness and other symptoms related to anaemia. Testing may be needed to confirm deficiency.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/iron.html"
+  },
+  {
+    "id": "iron_003",
+    "condition": "Iron",
+    "category": "Basic Healthcare",
+    "text": "Iron can be obtained from foods including meat, beans, lentils and fortified foods. Iron supplements should be used with appropriate professional guidance when deficiency is suspected.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/iron.html"
+  },
+
   {
     "id": "allergy_001",
     "condition": "Allergy",
@@ -256,13 +684,55 @@
     "url": "https://medlineplus.gov/allergy.html"
   },
   {
+    "id": "allergy_002",
+    "condition": "Allergy",
+    "category": "Common Symptoms",
+    "text": "Allergic reactions can cause sneezing, runny nose, itchy or watery eyes, skin symptoms or breathing symptoms depending on the allergen and person.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/allergy.html"
+  },
+  {
+    "id": "allergy_003",
+    "condition": "Allergy",
+    "category": "Possible Causes",
+    "text": "Common allergens can include pollen, dust mites, animal dander, certain foods, insect venom and some medicines or other substances.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/allergy.html"
+  },
+  {
+    "id": "allergy_004",
+    "condition": "Allergy",
+    "category": "Warning Signs",
+    "text": "Difficulty breathing, swelling of the throat or tongue, faintness or other signs of a severe allergic reaction require emergency medical attention.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/allergy.html"
+  },
+
+  {
     "id": "rhinitis_001",
     "condition": "Allergic Rhinitis",
-    "category": "Symptoms",
+    "category": "Overview",
+    "text": "Allergic rhinitis is an allergic reaction affecting the nose and can occur after exposure to allergens.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/allergicrhinitis.html"
+  },
+  {
+    "id": "rhinitis_002",
+    "condition": "Allergic Rhinitis",
+    "category": "Common Symptoms",
     "text": "Allergic rhinitis can cause sneezing, itchy or watery eyes, runny nose and nasal congestion after exposure to an allergen.",
     "source": "MedlinePlus",
     "url": "https://medlineplus.gov/allergicrhinitis.html"
   },
+  {
+    "id": "rhinitis_003",
+    "condition": "Allergic Rhinitis",
+    "category": "Possible Causes",
+    "text": "Allergic rhinitis can be triggered by substances such as pollen, dust mites, mold and animal dander.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/allergicrhinitis.html"
+  },
+
   {
     "id": "constipation_001",
     "condition": "Constipation",
@@ -272,6 +742,31 @@
     "url": "https://medlineplus.gov/constipation.html"
   },
   {
+    "id": "constipation_002",
+    "condition": "Constipation",
+    "category": "Possible Causes",
+    "text": "Constipation can be associated with inadequate dietary fibre, insufficient fluid intake, low physical activity, changes in routine, certain medicines and some medical conditions.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/constipation.html"
+  },
+  {
+    "id": "constipation_003",
+    "condition": "Constipation",
+    "category": "Basic Healthcare",
+    "text": "Adequate fluids, appropriate dietary fibre and regular physical activity can support healthy bowel function when medically appropriate.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/constipation.html"
+  },
+  {
+    "id": "constipation_004",
+    "condition": "Constipation",
+    "category": "When to See a Doctor",
+    "text": "Persistent constipation, severe abdominal pain, vomiting or blood in the stool should be medically evaluated.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/constipation.html"
+  },
+
+  {
     "id": "migraine_001",
     "condition": "Migraine",
     "category": "Overview",
@@ -279,6 +774,31 @@
     "source": "MedlinePlus",
     "url": "https://medlineplus.gov/migraine.html"
   },
+  {
+    "id": "migraine_002",
+    "condition": "Migraine",
+    "category": "Common Symptoms",
+    "text": "Migraine attacks can involve moderate to severe headache, nausea and sensitivity to light or sound. Some people experience warning symptoms called aura.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/migraine.html"
+  },
+  {
+    "id": "migraine_003",
+    "condition": "Migraine",
+    "category": "Possible Triggers",
+    "text": "Migraine attacks may be associated with triggers such as changes in sleep, stress, certain foods, hormonal changes or environmental factors, although triggers differ between people.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/migraine.html"
+  },
+  {
+    "id": "migraine_004",
+    "condition": "Migraine",
+    "category": "When to See a Doctor",
+    "text": "Frequent, changing or unusually severe headaches should be discussed with a healthcare professional. Sudden severe headache or serious neurological symptoms require urgent evaluation.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/migraine.html"
+  },
+
   {
     "id": "kidney_001",
     "condition": "Kidney Stones",
@@ -288,21 +808,96 @@
     "url": "https://medlineplus.gov/kidneystones.html"
   },
   {
+    "id": "kidney_002",
+    "condition": "Kidney Stones",
+    "category": "Common Symptoms",
+    "text": "Kidney stones can cause severe pain in the side or back, pain that moves toward the lower abdomen or groin, painful urination, nausea or blood in the urine.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/kidneystones.html"
+  },
+  {
+    "id": "kidney_003",
+    "condition": "Kidney Stones",
+    "category": "Possible Causes",
+    "text": "Kidney stones form when certain substances in urine become concentrated and form crystals. Different types of stones have different contributing factors.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/kidneystones.html"
+  },
+  {
+    "id": "kidney_004",
+    "condition": "Kidney Stones",
+    "category": "Warning Signs",
+    "text": "Severe pain, fever with urinary symptoms, persistent vomiting or difficulty passing urine can require urgent medical evaluation.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/kidneystones.html"
+  },
+
+  {
     "id": "uti_001",
     "condition": "Urinary Tract Infection",
-    "category": "Symptoms",
+    "category": "Overview",
+    "text": "A urinary tract infection is an infection affecting parts of the urinary system, including the bladder or urethra.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/urinarytractinfections.html"
+  },
+  {
+    "id": "uti_002",
+    "condition": "Urinary Tract Infection",
+    "category": "Common Symptoms",
     "text": "A urinary tract infection can cause symptoms such as pain or burning during urination, frequent urination and lower abdominal discomfort.",
     "source": "MedlinePlus",
     "url": "https://medlineplus.gov/urinarytractinfections.html"
   },
   {
+    "id": "uti_003",
+    "condition": "Urinary Tract Infection",
+    "category": "Possible Causes",
+    "text": "Urinary tract infections are commonly caused by bacteria entering and multiplying in the urinary tract.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/urinarytractinfections.html"
+  },
+  {
+    "id": "uti_004",
+    "condition": "Urinary Tract Infection",
+    "category": "Warning Signs",
+    "text": "Fever, chills, back or side pain, vomiting or worsening urinary symptoms can indicate a more serious infection and require medical assessment.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/urinarytractinfections.html"
+  },
+
+  {
     "id": "heat_001",
+    "condition": "Heat and Health",
+    "category": "Overview",
+    "text": "High environmental temperatures can cause heat-related health problems, particularly when the body cannot cool itself effectively.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health"
+  },
+  {
+    "id": "heat_002",
+    "condition": "Heat and Health",
+    "category": "Common Symptoms",
+    "text": "Heat-related illness can involve heavy sweating, weakness, dizziness, headache, nausea or other symptoms associated with overheating and fluid loss.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health"
+  },
+  {
+    "id": "heat_003",
     "condition": "Heat and Health",
     "category": "Prevention",
     "text": "During high heat, people can reduce risk by staying hydrated, keeping cool, limiting strenuous activity during the hottest periods and checking on people who may be more vulnerable.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health"
   },
+  {
+    "id": "heat_004",
+    "condition": "Heat and Health",
+    "category": "Warning Signs",
+    "text": "Severe heat-related illness can be dangerous. Confusion, loss of consciousness or rapidly worsening symptoms require urgent medical attention.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health"
+  },
+
   {
     "id": "sleep_001",
     "condition": "Sleep",
@@ -312,10 +907,43 @@
     "url": "https://medlineplus.gov/healthysleep.html"
   },
   {
+    "id": "sleep_002",
+    "condition": "Sleep",
+    "category": "Basic Healthcare",
+    "text": "Healthy sleep habits can include maintaining a regular sleep schedule, creating a comfortable sleep environment and developing a consistent bedtime routine.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/healthysleep.html"
+  },
+  {
+    "id": "sleep_003",
+    "condition": "Sleep",
+    "category": "When to See a Doctor",
+    "text": "Persistent sleep problems or excessive daytime sleepiness that interfere with daily activities should be discussed with a healthcare professional.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/healthysleep.html"
+  },
+
+  {
     "id": "selfcare_001",
     "condition": "General Health",
     "category": "Self Care",
     "text": "Self-care can include activities and choices that support health, prevent illness and help people manage aspects of their health with appropriate professional support when needed.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/self-care-health-interventions"
+  },
+  {
+    "id": "selfcare_002",
+    "condition": "General Health",
+    "category": "Basic Healthcare",
+    "text": "General health-supporting habits can include adequate sleep, balanced nutrition, physical activity appropriate for the individual, hydration, hygiene and seeking professional care when needed.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/self-care-health-interventions"
+  },
+  {
+    "id": "selfcare_003",
+    "condition": "General Health",
+    "category": "When to See a Doctor",
+    "text": "Self-care does not replace professional medical assessment. Persistent, severe or unexplained symptoms should be discussed with a qualified healthcare professional.",
     "source": "World Health Organization",
     "url": "https://www.who.int/news-room/fact-sheets/detail/self-care-health-interventions"
   }
