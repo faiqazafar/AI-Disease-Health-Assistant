@@ -1,0 +1,322 @@
+[
+  {
+    "id": "dengue_001",
+    "condition": "Dengue",
+    "category": "Overview",
+    "text": "Dengue is a viral infection transmitted mainly by infected Aedes mosquitoes. It is common in tropical and subtropical areas.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
+  },
+  {
+    "id": "dengue_002",
+    "condition": "Dengue",
+    "category": "Symptoms",
+    "text": "Common dengue symptoms include high fever, headache, pain behind the eyes, muscle and joint pain, nausea and skin rash.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
+  },
+  {
+    "id": "dengue_003",
+    "condition": "Dengue",
+    "category": "Warning Signs",
+    "text": "Warning signs of severe dengue can include severe abdominal pain, persistent vomiting, bleeding, rapid breathing, weakness or restlessness. Serious warning signs require urgent medical evaluation.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
+  },
+  {
+    "id": "malaria_001",
+    "condition": "Malaria",
+    "category": "Overview",
+    "text": "Malaria is a potentially life-threatening disease caused by parasites transmitted through bites of infected mosquitoes.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/malaria"
+  },
+  {
+    "id": "malaria_002",
+    "condition": "Malaria",
+    "category": "Symptoms",
+    "text": "Malaria commonly causes fever, chills and headache. Other symptoms can include sweating, weakness, nausea and body aches.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/malaria"
+  },
+  {
+    "id": "diabetes_001",
+    "condition": "Diabetes",
+    "category": "Overview",
+    "text": "Diabetes is a chronic condition in which blood glucose levels are elevated because the body does not produce enough insulin, does not use insulin effectively, or both.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/diabetes"
+  },
+  {
+    "id": "diabetes_002",
+    "condition": "Diabetes",
+    "category": "Symptoms",
+    "text": "Common symptoms of diabetes can include increased thirst, frequent urination, increased hunger, tiredness, blurred vision and unexplained weight changes.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/diabetes"
+  },
+  {
+    "id": "asthma_001",
+    "condition": "Asthma",
+    "category": "Overview",
+    "text": "Asthma is a chronic respiratory condition involving inflammation and narrowing of the airways that can cause breathing symptoms.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/asthma"
+  },
+  {
+    "id": "asthma_002",
+    "condition": "Asthma",
+    "category": "Symptoms",
+    "text": "Asthma symptoms can include coughing, wheezing, shortness of breath and chest tightness. Symptoms can vary over time and may have different triggers.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/asthma"
+  },
+  {
+    "id": "influenza_001",
+    "condition": "Influenza",
+    "category": "Overview",
+    "text": "Influenza is a respiratory infection caused by influenza viruses and can affect people of all ages.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/influenza-seasonal"
+  },
+  {
+    "id": "influenza_002",
+    "condition": "Influenza",
+    "category": "Symptoms",
+    "text": "Influenza can cause sudden fever, cough, sore throat, muscle aches, headache, chills and fatigue.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/influenza-seasonal"
+  },
+  {
+    "id": "tb_001",
+    "condition": "Tuberculosis",
+    "category": "Overview",
+    "text": "Tuberculosis is an infectious disease caused by bacteria. It most commonly affects the lungs but can affect other parts of the body.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/tuberculosis"
+  },
+  {
+    "id": "tb_002",
+    "condition": "Tuberculosis",
+    "category": "Symptoms",
+    "text": "Pulmonary tuberculosis can cause prolonged cough, chest pain, weakness, fatigue, weight loss, fever and night sweats.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/tuberculosis"
+  },
+  {
+    "id": "pneumonia_001",
+    "condition": "Pneumonia",
+    "category": "Overview",
+    "text": "Pneumonia is an infection of the lungs that can be caused by bacteria, viruses or other microorganisms.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/pneumonia"
+  },
+  {
+    "id": "pneumonia_002",
+    "condition": "Pneumonia",
+    "category": "Symptoms",
+    "text": "Pneumonia can cause cough, difficulty breathing, fever, chills and chest discomfort. Symptoms vary with the cause and the person.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/pneumonia"
+  },
+  {
+    "id": "hypertension_001",
+    "condition": "Hypertension",
+    "category": "Overview",
+    "text": "Hypertension, or high blood pressure, is a condition in which the pressure of blood against artery walls is persistently elevated.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+  },
+  {
+    "id": "hypertension_002",
+    "condition": "Hypertension",
+    "category": "Symptoms",
+    "text": "Many people with hypertension have no noticeable symptoms. Very high blood pressure can sometimes be associated with headache, blurred vision or other serious symptoms.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+  },
+  {
+    "id": "hepatitis_001",
+    "condition": "Viral Hepatitis",
+    "category": "Overview",
+    "text": "Viral hepatitis is inflammation of the liver caused by hepatitis viruses. Different hepatitis viruses have different routes of transmission and health effects.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/hepatitis"
+  },
+  {
+    "id": "diarrhea_001",
+    "condition": "Diarrhoeal Disease",
+    "category": "Overview",
+    "text": "Diarrhoeal disease involves frequent passage of loose or watery stools. It can be caused by infections, contaminated food or water and other factors.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/diarrhoeal-disease"
+  },
+  {
+    "id": "diarrhea_002",
+    "condition": "Diarrhoeal Disease",
+    "category": "Prevention",
+    "text": "Safe drinking water, sanitation, handwashing and food hygiene are important measures for reducing diarrhoeal disease.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/diarrhoeal-disease"
+  },
+  {
+    "id": "anemia_001",
+    "condition": "Anaemia",
+    "category": "Overview",
+    "text": "Anaemia is a condition in which the number of red blood cells or their capacity to carry oxygen is lower than needed. Iron deficiency is a common cause.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/health-topics/anaemia"
+  },
+  {
+    "id": "eczema_001",
+    "condition": "Eczema",
+    "category": "Overview",
+    "text": "Eczema is a group of inflammatory skin conditions that can cause dry, itchy and inflamed skin.",
+    "source": "National Institute of Arthritis and Musculoskeletal and Skin Diseases",
+    "url": "https://www.niams.nih.gov/health-topics/atopic-dermatitis"
+  },
+  {
+    "id": "acne_001",
+    "condition": "Acne",
+    "category": "Overview",
+    "text": "Acne is a common skin condition involving hair follicles and oil glands. It can cause pimples, blackheads, whiteheads and other skin lesions.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/acne.html"
+  },
+  {
+    "id": "dehydration_001",
+    "condition": "Dehydration",
+    "category": "Overview",
+    "text": "Dehydration occurs when the body loses more fluids than it takes in. It can occur with illness, vomiting, diarrhoea, sweating or inadequate fluid intake.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/dehydration.html"
+  },
+  {
+    "id": "cold_001",
+    "condition": "Common Cold",
+    "category": "Overview",
+    "text": "The common cold is a viral infection of the upper respiratory tract. It commonly causes a runny nose, nasal congestion, sneezing and sore throat.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/commoncold.html"
+  },
+  {
+    "id": "headache_001",
+    "condition": "Headache",
+    "category": "General Symptom",
+    "text": "Headache is pain in the head or upper neck. Many different conditions can cause headaches, and the pattern and accompanying symptoms matter when evaluating the cause.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/headache.html"
+  },
+  {
+    "id": "fever_001",
+    "condition": "Fever",
+    "category": "General Symptom",
+    "text": "Fever is a temporary increase in body temperature that can occur as part of the body's response to illness or infection.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/fever.html"
+  },
+  {
+    "id": "food_001",
+    "condition": "Food Poisoning",
+    "category": "Overview",
+    "text": "Food poisoning can result from eating food or drinking water contaminated with harmful bacteria, viruses, parasites or toxins. Symptoms often involve the digestive system.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/foodborneillness.html"
+  },
+  {
+    "id": "food_002",
+    "condition": "Food Poisoning",
+    "category": "Symptoms",
+    "text": "Foodborne illness may cause nausea, vomiting, diarrhoea, abdominal pain or cramps and fever. Severity varies by cause and person.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/foodborneillness.html"
+  },
+  {
+    "id": "vitd_001",
+    "condition": "Vitamin D",
+    "category": "General Information",
+    "text": "Vitamin D helps the body absorb calcium and supports healthy bones. Low vitamin D levels can affect bone health.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/vitamind.html"
+  },
+  {
+    "id": "iron_001",
+    "condition": "Iron",
+    "category": "General Information",
+    "text": "Iron is needed to make haemoglobin, a protein in red blood cells that carries oxygen. Iron deficiency can lead to iron-deficiency anaemia.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/iron.html"
+  },
+  {
+    "id": "allergy_001",
+    "condition": "Allergy",
+    "category": "Overview",
+    "text": "An allergy is an immune system reaction to a substance that is usually harmless to most people. Reactions can affect the skin, nose, eyes, lungs or digestive system.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/allergy.html"
+  },
+  {
+    "id": "rhinitis_001",
+    "condition": "Allergic Rhinitis",
+    "category": "Symptoms",
+    "text": "Allergic rhinitis can cause sneezing, itchy or watery eyes, runny nose and nasal congestion after exposure to an allergen.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/allergicrhinitis.html"
+  },
+  {
+    "id": "constipation_001",
+    "condition": "Constipation",
+    "category": "Overview",
+    "text": "Constipation means having fewer bowel movements than usual or passing hard, dry stools that are difficult to pass.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/constipation.html"
+  },
+  {
+    "id": "migraine_001",
+    "condition": "Migraine",
+    "category": "Overview",
+    "text": "Migraine is a neurological condition that can cause recurrent headache attacks and may be accompanied by nausea or sensitivity to light and sound.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/migraine.html"
+  },
+  {
+    "id": "kidney_001",
+    "condition": "Kidney Stones",
+    "category": "Overview",
+    "text": "Kidney stones are hard deposits that form in the kidneys. They can cause pain when they move through the urinary tract.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/kidneystones.html"
+  },
+  {
+    "id": "uti_001",
+    "condition": "Urinary Tract Infection",
+    "category": "Symptoms",
+    "text": "A urinary tract infection can cause symptoms such as pain or burning during urination, frequent urination and lower abdominal discomfort.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/urinarytractinfections.html"
+  },
+  {
+    "id": "heat_001",
+    "condition": "Heat and Health",
+    "category": "Prevention",
+    "text": "During high heat, people can reduce risk by staying hydrated, keeping cool, limiting strenuous activity during the hottest periods and checking on people who may be more vulnerable.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health"
+  },
+  {
+    "id": "sleep_001",
+    "condition": "Sleep",
+    "category": "General Health",
+    "text": "Good sleep supports physical and mental health. Sleep needs vary by age, and regular sleep routines can support healthy sleep.",
+    "source": "MedlinePlus",
+    "url": "https://medlineplus.gov/healthysleep.html"
+  },
+  {
+    "id": "selfcare_001",
+    "condition": "General Health",
+    "category": "Self Care",
+    "text": "Self-care can include activities and choices that support health, prevent illness and help people manage aspects of their health with appropriate professional support when needed.",
+    "source": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/self-care-health-interventions"
+  }
+]
